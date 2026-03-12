@@ -4,7 +4,7 @@ Tools to transfer music from and to various streaming services.
 
 ## Tools:
 
-- Clean playlist
+- Clear liked songs
 - Export tracks from playlist
 - Import tracks into playlist
 
