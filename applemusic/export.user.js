@@ -25,7 +25,7 @@ async function startExport() {
   let count = 0
 
   const results = [
-    ["Title", "Album", "Artist", "IsStreamable"]
+    ["Title", "Album", "Artist", "ArtworkURL", "IsStreamable"]
   ]
 
   try {
@@ -39,7 +39,7 @@ async function startExport() {
 
       for (const track of data.tracks) {
         results.push(
-          [track.title || "", normalizeAlbumName(track.album || ""), track.artist || "", track.isStreamable]
+          [track.title || "", normalizeAlbumName(track.album || ""), track.artist || "", track.artworkUrl || "", track.isStreamable]
         )
         count++
       }
@@ -144,6 +144,7 @@ function parseResponse(d) {
     track.title = song["attributes"]["name"]
     track.album = song["attributes"]["albumName"]
     track.artist = song["attributes"]["artistName"]
+    track.artworkUrl = song["attributes"]["artwork"]?.["url"]?.replace("{w}", "40")?.replace("{h}", "40")?.replace("{f}", "webp")
     track.isStreamable = "playParams" in song["attributes"]
 
     tracks.push(track)
