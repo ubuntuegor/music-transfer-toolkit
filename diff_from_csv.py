@@ -78,7 +78,7 @@ def main() -> None:
     for i, result in enumerate(results):
         html.tbody.append(create_row_for_result(i, result))
 
-    open(sys.argv[2], "w", encoding="utf-8").write(html.prettify())
+    open(sys.argv[2], "w", encoding="utf-8").write(str(html))
 
 
 def create_row_for_result(i, result):
