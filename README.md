@@ -24,6 +24,8 @@ uv run --script <script.py> ...<args>
 3. Import songs into the new streaming service using the previously exported CSV
 4. Use the diff script to check that matching songs were correctly found
 
+<img src="https://github.com/user-attachments/assets/275fd407-7125-40a5-a4ab-85eb0ccd31eb" width="900">
+
 ## Tracks exchange format
 
 - Format: CSV
