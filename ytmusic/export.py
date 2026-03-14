@@ -40,7 +40,9 @@ def main() -> None:
 
         for result in results:
             song = parse_song(result)
-            w.writerow([song.title, song.album, song.artist, song.artwork_url, song.video_id])
+            w.writerow(
+                [song.title, song.album, song.artist, song.artwork_url, song.video_id]
+            )
 
 
 def parse_song(result):
