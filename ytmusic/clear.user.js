@@ -11,12 +11,16 @@
 const LIKE_BUTTONS_SELECTOR = "ytmusic-like-button-renderer[like-status=LIKE] .like button"
 
 GM.registerMenuCommand("Start clearing", () => {
+    let count = 0
     const buttons = Array.from(unsafeWindow.document.querySelectorAll(LIKE_BUTTONS_SELECTOR))
 
     function loop() {
         if (buttons.length > 0) {
             buttons.shift().click()
+            count++
             setTimeout(loop, 400)
+        } else {
+            alert(`Finished! Removed ${count} songs`)
         }
     }
 
