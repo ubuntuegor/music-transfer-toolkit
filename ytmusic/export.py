@@ -12,7 +12,18 @@ import sys
 
 from ytmusicapi import YTMusic
 
-from common import get_artist_str
+# COMMON
+
+
+@dataclass
+class Song:
+    title: str
+    album: str
+    artist: str
+    artwork_url: str
+
+
+# /COMMON
 
 
 def main() -> None:
@@ -48,22 +59,26 @@ def main() -> None:
 def parse_song(result):
     artist_str = get_artist_str(result)
     album_str = result["album"]["name"] if result["album"] is not None else ""
-    return Song(
-        result["videoId"],
+    return YTMusicSong(
         result["title"],
         album_str,
         artist_str,
         result["thumbnails"][0]["url"],
+        result["videoId"],
+    )
+
+
+def get_artist_str(result):
+    return (
+        ", ".join(map(lambda x: x["name"], result["artists"]))
+        if "artists" in result
+        else ""
     )
 
 
 @dataclass
-class Song:
+class YTMusicSong(Song):
     video_id: str
-    title: str
-    album: str
-    artist: str
-    artwork_url: str
 
 
 if __name__ == "__main__":
