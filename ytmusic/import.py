@@ -17,11 +17,11 @@ from common import get_artist_str
 
 
 def main() -> None:
-    ytmusic = YTMusic("browser.json")
-
-    if len(sys.argv) != 3:
-        print("arguments: <path to the csv> <playlist id from the url>")
+    if len(sys.argv) != 3 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        print("usage: import.py <tracks_csv> <playlist_id>")
         return
+
+    ytmusic = YTMusic("browser.json")
 
     songs = read_songs_to_import(sys.argv[1])
     playlist_id = sys.argv[2]

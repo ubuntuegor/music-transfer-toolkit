@@ -16,11 +16,11 @@ from common import get_artist_str
 
 
 def main() -> None:
-    ytmusic = YTMusic("browser.json")
-
-    if len(sys.argv) != 2:
-        print("pass the playlist id as the only argument")
+    if len(sys.argv) != 2 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        print("usage: export.py <playlist_id>")
         return
+
+    ytmusic = YTMusic("browser.json")
 
     playlist_id = sys.argv[1]
     results = ytmusic.get_playlist(playlist_id, None)["tracks"]
