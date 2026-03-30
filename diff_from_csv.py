@@ -55,7 +55,9 @@ BASE_HTML = """
 
 def main() -> None:
     if len(sys.argv) != 3 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
-        print("usage: diff_from_csv.py <path_to_import_results_csv> <path_to_html_result>")
+        print(
+            "usage: diff_from_csv.py <path_to_import_results_csv> <path_to_html_result>"
+        )
         return
 
     csvfilepath = sys.argv[1]
