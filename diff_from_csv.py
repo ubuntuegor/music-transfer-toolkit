@@ -40,6 +40,7 @@ BASE_HTML = """
             <tr>
                 <th>№</th>
                 <th>Art</th>
+                <th>Score</th>
                 <th>Title</th>
                 <th>Album</th>
                 <th>Artist</th>
@@ -51,6 +52,24 @@ BASE_HTML = """
 </body>
 </html>
 """
+
+
+@dataclass
+class Song:
+    title: str
+    album: str
+    artist: str
+    artwork_url: str
+
+
+def compare_songs(a: Song, b: Song) -> float:
+    return (
+        SequenceMatcher(None, a.title.lower(), b.title.lower()).ratio() * 2
+        + SequenceMatcher(None, a.album.lower(), b.album.lower()).ratio()
+        + SequenceMatcher(
+            lambda c: not c.isalnum(), a.artist.lower(), b.artist.lower()
+        ).ratio()
+    )
 
 
 def main() -> None:
@@ -102,6 +121,11 @@ def create_row_for_result(i, result):
     art_td.append(orig_img)
     art_td.append(result_img)
     html.tr.append(art_td)
+
+    a = Song(result.title, result.album, result.artist, "")
+    b = Song(result.result_title, result.result_album, result.result_artist, "")
+    score_td = html.new_tag("td", string=str(compare_songs(a, b)))
+    html.tr.append(score_td)
 
     html.tr.append(create_cell_for_string_diff(result.title, result.result_title))
 
