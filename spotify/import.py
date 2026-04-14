@@ -45,7 +45,8 @@ def compare_songs(a: Song, b: Song) -> float:
 
 
 def choose_best_result(song: Song, results: list[Song]) -> Song | None:
-    return max(results, key=lambda x: compare_songs(song, x), default=None)
+    filtered = filter(lambda x: compare_songs(song, x) >= 2, results)
+    return max(filtered, key=lambda x: compare_songs(song, x), default=None)
 
 
 # /COMMON
@@ -137,7 +138,8 @@ def add_song_to_playlist(
 
 
 def get_result_song(sp: spotipy.Spotify, song: Song):
-    results = sp.search(f"{song.artist} {song.title}", type="track")
+    query = prepare_query(f"{song.artist} {song.title}")
+    results = sp.search(query, type="track")
     results = results["tracks"]["items"]
     results = list(
         map(
